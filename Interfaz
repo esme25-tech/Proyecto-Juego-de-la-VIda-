@@ -1,0 +1,48 @@
+import streamlit as st
+from logica import COLS, ROWS
+
+def mostrar_encabezado():
+    """Muestra el título, descripción y reglas del juego."""
+    st.set_page_config(page_title="Juego de la Vida", layout="centered")
+    st.title("Juego de la Vida")
+    
+    st.write(
+        "El juego de la vida se desarrolla en un tablero cuadriculado. "
+        "La evolución del juego depende de la posición inicial de las células."
+    )
+
+    with st.expander("Reglas del juego"):
+        st.markdown("""
+        *   Una célula *estará viva* si está viva y tiene *2 o 3 vecinas vivas*.
+        *   Una célula *estará viva* si está vacía y tiene *exactamente 3 vecinas vivas*.
+        """)
+    st.divider()
+
+def renderizar_tablero(grid):
+    """Convierte la matriz en HTML para una vista nítida."""
+    html = '<div style="display: grid; grid-template-columns: repeat(' + str(COLS) + ', 15px); gap: 1px; background-color: #333; padding: 5px; border-radius: 5px; justify-content: center;">'
+    
+    for row in range(ROWS):
+        for col in range(COLS):
+            color = "#FFFFFF" if grid[row, col] == 1 else "#000000"
+            html += f'<div style="width: 15px; height: 15px; background-color: {color};"></div>'
+            
+    html += '</div>'
+    return html
+
+def mostrar_controles():
+    """Crea los botones de Iniciar, Pausa y Reiniciar."""
+    col1, col2, col3 = st.columns(3)
+    accion = None
+    
+    with col1:
+        if st.button("Iniciar", use_container_width=True):
+            accion = "iniciar"
+    with col2:
+        if st.button("Pausa", use_container_width=True):
+            accion = "pausar"
+    with col3:
+        if st.button("Reiniciar", use_container_width=True):
+            accion = "reiniciar"
+            
+    return accion
