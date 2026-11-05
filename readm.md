@@ -1,4 +1,4 @@
-# Proyecto: Juego de la Vida (Conway's Game of Life)
+# Proyecto: Juego de la Vida 
 
 ## Resumen
 
